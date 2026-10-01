@@ -44,6 +44,13 @@ for (const animal of animals) {
 // Task 4 — Adopted and available animals with .filter()
 // ---------------------------------------------------------------------------
 
+// Separate animals based on whether they have been adopted.
+const adoptedAnimals = animals.filter((animal) => animal.adopted);
+const availableAnimals = animals.filter((animal) => !animal.adopted);
+
+console.log(adoptedAnimals);
+console.log(availableAnimals);
+
 // ---------------------------------------------------------------------------
 // Task 5 — Available dogs with method chaining
 // ---------------------------------------------------------------------------
