@@ -55,22 +55,97 @@ console.log(availableAnimals);
 // Task 5 — Available dogs with method chaining
 // ---------------------------------------------------------------------------
 
+// Find dogs that haven't been adopted yet.
+// First I filter the animals, then I use map
+// to get just their names instead of the whole object.
+const availableDogs = animals
+    .filter((animal) => animal.species === "dog" && !animal.adopted)
+    .map((animal) => animal.name);
+
+console.log(availableDogs);
+
 // ---------------------------------------------------------------------------
 // Task 6 — Average age with .reduce()
 // ---------------------------------------------------------------------------
+
+// I use reduce to add all the animal ages together.
+// Then I divide the total by the number of animals
+// to find the average age of the shelter animals.
+
+const totalAge = animals.reduce((total, animal) => {
+    return total + animal.age;
+}, 0);
+
+const averageAge = totalAge / animals.length;
+
+console.log(averageAge);
 
 // ---------------------------------------------------------------------------
 // Task 7 — Write isCat, isAdopted, and getName
 // ---------------------------------------------------------------------------
 
+// These functions let me reuse the same checks
+// in later tasks instead of writing them again.
+
+// Check whether an animal is a cat.
+function isCat(animal) {
+    return animal.species === "cat";
+}
+
+// Check whether an animal has been adopted.
+function isAdopted(animal) {
+    return animal.adopted === true;
+}
+
+// Get just the name of an animal.
+function getName(animal) {
+    return animal.name;
+}
+
 // ---------------------------------------------------------------------------
 // Task 8 — Adopted cats, using your own functions as callbacks
 // ---------------------------------------------------------------------------
+
+// First I find all the cats, then I check which
+// ones were adopted. Finally, I get just their names.
+// I reuse my functions from Task 7 instead of
+// writing new callbacks.
+
+const adoptedCats = animals
+    .filter(isCat)
+    .filter(isAdopted)
+    .map(getName);
+
+console.log(adoptedCats);
 
 // ---------------------------------------------------------------------------
 // Task 9 — Write makeSpeciesChecker (a closure)
 // ---------------------------------------------------------------------------
 
+// This function creates a checker for a specific species.
+// The returned function remembers which species I chose,
+// so I can reuse it to check different animals.
+
+function makeSpeciesChecker(species) {
+    return function (animal) {
+        return animal.species === species;
+    };
+}
+
 // ---------------------------------------------------------------------------
 // Task 10 — Build isDog and isRabbit, then log their names
 // ---------------------------------------------------------------------------
+
+// I use my species checker to create separate
+// functions for dogs and rabbits.
+// Then I filter the animals and reuse getName
+// to display only the names of each species.
+
+const isDog = makeSpeciesChecker("dog");
+const isRabbit = makeSpeciesChecker("rabbit");
+
+const dogNames = animals.filter(isDog).map(getName);
+const rabbitNames = animals.filter(isRabbit).map(getName);
+
+console.log(dogNames);
+console.log(rabbitNames);
